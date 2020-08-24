@@ -169,3 +169,4 @@ esp32-idf开发task注意点：
 - 创建任务使用的栈大小必须的1024的倍速，小了或者不是1024的会导致重启
 - 任务创建后不能使用 vTaskStartScheduler 函数会导致重启  
 - task里面死循环不使用delay就会由系统的时间片来调度，由portTICK_PERIOD_MS决定 100Hz 代表 10 Ms
+- vTaskDelay 阻塞 独占了时间片 资源，不建议使用

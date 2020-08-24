@@ -17,15 +17,11 @@ void app_main()
   task_create();
 
   /* main 函数中如果不加入下面的死循环，main函数就直接返回，留下2个task单独运行，加入下面的死循环是3个task在运行 */
-/*
-  for (;;)
-  {
-    printf("main task run \n");
-    vTaskDelay(10 / portTICK_PERIOD_MS);
-  }
-*/
+
+  //for (;;); //这里加入死循环就会出发wdt
+
   /* 启动调度器，任务开始执行 */
-  //vTaskStartScheduler();
+  //vTaskStartScheduler();  //不能使用此函数
 }
 
 void ATaskFunction(void *pvParameters)
@@ -81,8 +77,8 @@ void task_create(void)
   printf("task_create start\n");
 
   /* 如果2个任务里面的死循环都不用delay，且任务优先级一致，是由时间片来实现调度，速度由 portTICK_PERIOD_MS 决定 */
-  xTaskCreate(ATaskFunction, "task-1", 2048, NULL, tskIDLE_PRIORITY, NULL);  //512会重启 必须是1024的倍数
-  xTaskCreate(ATaskFunction1, "task-2", 2048, NULL, tskIDLE_PRIORITY, NULL); //tskIDLE_PRIORITY
+  xTaskCreate(ATaskFunction, "task-1", 2048, NULL, 1, NULL);  //512会重启 必须是1024的倍数
+  xTaskCreate(ATaskFunction1, "task-2", 2048, NULL, 1, NULL); //tskIDLE_PRIORITY
 
   /* vTaskStartScheduler()函数使用会导致重启，vTaskStartScheduler这个函数的用法搞不清楚 
   错误如下：
