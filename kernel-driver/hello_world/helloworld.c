@@ -12,7 +12,7 @@ static __exit void helloworld_exit(void)
 {
     printk(KERN_INFO "Hello World! exit\n");
 }
-
+ 
 
 module_init(helloworld_init);
 module_exit(helloworld_exit);
