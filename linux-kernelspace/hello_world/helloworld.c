@@ -4,13 +4,13 @@
 
 static __init int helloworld_init(void)
 {
-    printk(KERN_INFO "Hello World! init\n");
+    pr_err("Hello World! init\n");
     return 0;
 }
 
 static __exit void helloworld_exit(void)
 {
-    printk(KERN_INFO "Hello World! exit\n");
+    pr_err("Hello World! exit\n");
 }
  
 

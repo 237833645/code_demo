@@ -1,2 +1,3 @@
-/home/user/kernel-driver/hrtimer/hrtimer.ko
-/home/user/kernel-driver/hrtimer/hrtimer.o
+/home/ubuntu/code_demo/linux-kernelspace/hrtimer/hrtimer.ko
+/home/ubuntu/code_demo/linux-kernelspace/hrtimer/hrtimer.o
+
