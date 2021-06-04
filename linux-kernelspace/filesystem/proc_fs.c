@@ -25,24 +25,24 @@ static struct proc_dir_entry *proc_dir_entry = NULL;
 #define PROC_NAME "op"
 
 //static umode_t mode = S_IRWXU|S_IRWXG|S_IRWXO;
-static umode_t mode = 0777;//S_IRUSR|S_IWUSR;
+static umode_t mode = 0777; //S_IRUSR|S_IWUSR;
 
 static int mt_need_uart_console = 0;
 
 static int mt_printk_ctrl_show(struct seq_file *m, void *v)
 {
-    if (m) {
-        seq_printf(m, "mt_need_uart_console = %d\n", mt_need_uart_console);
-    }
+	if (m)
+	{
+		seq_printf(m, "mt_need_uart_console = %d\n", mt_need_uart_console);
+	}
 
 	return 0;
 }
 
 static int proc_open(struct inode *inode, struct file *file)
 {
-    return single_open(file, mt_printk_ctrl_show, inode->i_private);
+	return single_open(file, mt_printk_ctrl_show, inode->i_private);
 }
-
 
 static ssize_t proc_write(struct file *filp, const char *ubuf, size_t cnt, loff_t *data)
 {
@@ -63,7 +63,8 @@ static ssize_t proc_write(struct file *filp, const char *ubuf, size_t cnt, loff_
 	if (ret < 0)
 		return ret;
 
-	switch (val) {
+	switch (val)
+	{
 	case 0:
 		mt_need_uart_console = 0;
 		//mt_disable_uart();
@@ -72,7 +73,7 @@ static ssize_t proc_write(struct file *filp, const char *ubuf, size_t cnt, loff_
 		mt_need_uart_console = 1;
 		//mt_enable_uart();
 		break;
-	
+
 	default:
 		break;
 	}
@@ -80,43 +81,44 @@ static ssize_t proc_write(struct file *filp, const char *ubuf, size_t cnt, loff_
 }
 
 static const struct file_operations proc_operations = {
-    .owner          = THIS_MODULE,
-    .open           = proc_open,
-	.write          = proc_write, 
-    .read           = seq_read,
-    .llseek         = seq_lseek,
-    .release        = single_release,
+		.owner = THIS_MODULE,
+		.open = proc_open,
+		.write = proc_write,
+		.read = seq_read,
+		.llseek = seq_lseek,
+		.release = single_release,
 };
 
 static __init int proc_fs_init(void)
 {
 
-    //proc_dir_entry = proc_mkdir(PROC_DIR_NAME, NULL); //NULL表示是在/proc/目录下面建立目录
-    proc_dir_entry = proc_mkdir_mode(PROC_DIR_NAME, mode, NULL);
-    if (!proc_dir_entry) {
-        pr_err("proc_dir_entry == NULL");
-        return -ENOMEM;
-    }
+	//proc_dir_entry = proc_mkdir(PROC_DIR_NAME, NULL); //NULL表示是在/proc/目录下面建立目录
+	proc_dir_entry = proc_mkdir_mode(PROC_DIR_NAME, mode, NULL);
+	if (!proc_dir_entry)
+	{
+		pr_err("proc_dir_entry == NULL");
+		return -ENOMEM;
+	}
 
-    proc_create(PROC_NAME, mode, proc_dir_entry, &proc_operations);
+	proc_create(PROC_NAME, mode, proc_dir_entry, &proc_operations);
 
-    pr_info("%s %d successful", __func__,__LINE__);
+	pr_info("%s %d successful", __func__, __LINE__);
 
-    return 0;
+	return 0;
 }
 
 static __exit void proc_fs_exit(void)
 {
-    
-    if (!proc_dir_entry) {
-        proc_remove(proc_dir_entry);
-        proc_dir_entry = NULL;
-        pr_info("proc_dir_entry remove ok");
-    }
-    
-    pr_info("%s %d successful", __func__,__LINE__);
+
+	if (!proc_dir_entry)
+	{
+		proc_remove(proc_dir_entry);
+		proc_dir_entry = NULL;
+		pr_info("proc_dir_entry remove ok");
+	}
+
+	pr_info("%s %d successful", __func__, __LINE__);
 }
- 
 
 module_init(proc_fs_init);
 module_exit(proc_fs_exit);
@@ -124,5 +126,3 @@ module_exit(proc_fs_exit);
 MODULE_AUTHOR("wangfeng");
 MODULE_DESCRIPTION("Linux hello module");
 MODULE_LICENSE("Dual BSD/GPL");
-
-

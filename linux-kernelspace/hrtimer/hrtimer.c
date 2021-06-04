@@ -15,7 +15,7 @@ static struct hrtimer timer;
 timer.function = hrtimer_hander;
  
 2. 定时器初始化
-/*
+/* 
  *  参数timer是hrtimer指针，
  *  参数clock_id有如下常用几种选项：
  *  CLOCK_REALTIME	//实时时间，如果系统时间变了，定时器也会变
@@ -61,21 +61,22 @@ enum hrtimer_restart {
 int hrtimer_cancel(struct hrtimer *timer)；
 #endif
 
-
 /* 定时器回调函数 */
-static enum hrtimer_restart function(struct hrtimer *hr) {
+static enum hrtimer_restart function(struct hrtimer *hr)
+{
   static int i = 0;
 
   printk(KERN_ALERT "hrtimer function call %d\n", i++);
 
   /* 设置3s下次过期时间  ktime_set() 单位为秒和纳秒组合 */
-  hrtimer_forward_now(hr, ms_to_ktime(1000)/*ktime_set(3,0)*/);  
+  hrtimer_forward_now(hr, ms_to_ktime(1000) /*ktime_set(3,0)*/);
 
-  /* 该参数将重新启动定时器 */ 
+  /* 该参数将重新启动定时器 */
   return HRTIMER_RESTART; // : HRTIMER_NORESTART;
 }
 
-static __init int hrtimer_demo_init(void) {
+static __init int hrtimer_demo_init(void)
+{
   printk(KERN_ALERT "hrtimer_demo_init\n");
 
   /* hrtimer初始化 */
@@ -85,12 +86,13 @@ static __init int hrtimer_demo_init(void) {
   timer.function = function;
 
   /* hrtimer启动 */
-  hrtimer_start(&timer, ktime_set(1,0)/*ms_to_ktime(2000)*/, HRTIMER_MODE_REL);
+  hrtimer_start(&timer, ktime_set(1, 0) /*ms_to_ktime(2000)*/, HRTIMER_MODE_REL);
 
   return 0;
 }
 
-static __exit void hrtimer_demo_exit(void) {
+static __exit void hrtimer_demo_exit(void)
+{
   /* hrtimer注销 */
   hrtimer_cancel(&timer);
 
