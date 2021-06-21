@@ -1,3 +1,4 @@
+CONFIG_MODULE_SIG=n
 obj-m := helloworld.o
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
