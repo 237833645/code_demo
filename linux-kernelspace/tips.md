@@ -6,5 +6,3 @@
 
   > 在当前linux 系统的kernel源码下修改config文件，CONFIG_MODULE_SIG=n  
   > 在驱动的Makefile文件里面添加这行CONFIG_MODULE_SIG=n
-
-- 
