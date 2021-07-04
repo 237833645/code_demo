@@ -1,4 +1,4 @@
-obj-m := kthread_run.o kthread_create.o hrtimer.o hrtimer_1.o timer_static.o timer_dynamic.o workqueue.o
+obj-m := kthread_run.o kthread_create.o hrtimer.o timer_static.o timer_dynamic.o workqueue.o tasklet.o
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 modules:

@@ -17,5 +17,5 @@ module_init(helloworld_init);
 module_exit(helloworld_exit);
 
 MODULE_AUTHOR("wangfeng");
-MODULE_DESCRIPTION("Linux hello module");
+MODULE_DESCRIPTION("Linux helloworld module");
 MODULE_LICENSE("Dual BSD/GPL");
