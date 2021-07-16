@@ -1,4 +1,4 @@
-obj-m := gpio_demo0.o
+obj-m := gpio_request_one.o gpio_request_array.o
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 modules:
