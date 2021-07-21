@@ -3,19 +3,20 @@ TARGET = helloworld
 C = gcc
 G = g++
 CFLAGS = -Wall -O -g
+LDFLAGS = -lsqlite3
+
+#%.o:%.c
+#	$(C) $(CFLAGS) $(LDFLAGS) -c $< -o $@
  
-%.o:%.c
-	$(C) $(CFLAGS) -c $< -o $@
- 
-%.o:%.cpp
-	$(G) $(CFLAGS) -c $< -o $@
+#%.o:%.cpp
+#	$(G) $(CFLAGS) $(LDFLAGS) -c $< -o $@
  
 SOURCES = $(wildcard *.c *.cpp)
  
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
  
 $(TARGET):$(OBJS)
-	$(G) $(OBJS) -o $(TARGET)
+	$(G) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(TARGET)
 #	chmod a+x $(TARGET)
  
 clean:
